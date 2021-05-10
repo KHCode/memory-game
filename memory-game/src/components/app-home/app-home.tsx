@@ -1,4 +1,5 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
+// import axios from 'axios';
 
 @Component({
   tag: 'app-home',
@@ -6,6 +7,30 @@ import { Component, h } from '@stencil/core';
   shadow: true,
 })
 export class AppHome {
+  cardImageUrls = [
+    'butterfly.jpg',
+    'dog.jpg',
+    'fox.jpg',
+    'giraffe.jpg',
+    'kingfisher.jpg',
+    'kitten.jpg',
+    'panda.jpg',
+    'puppy.jpg',
+    'tiger.jpg',
+    'turtle.jpg'
+  ];
+  @State() cardDeck = [];
+
+  // componentWillLoad(){
+  //   for(let i = 0; i < 8; i++){
+  //     axios.get(`https://picsum.photos/200?random=${i}`)
+  //       .then(response => {
+  //         this.cardImages.push(response.request.responseURL)
+  //       })
+  //   }
+  // }
+
+
   render() {
     return (
       <div class="app-home">
