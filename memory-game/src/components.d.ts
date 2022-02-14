@@ -10,6 +10,11 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface MemoryCard {
+        "cardImage": string;
+        "clickHandler": any;
+        "isRevealed": boolean;
+    }
 }
 declare global {
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
@@ -24,9 +29,16 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLMemoryCardElement extends Components.MemoryCard, HTMLStencilElement {
+    }
+    var HTMLMemoryCardElement: {
+        prototype: HTMLMemoryCardElement;
+        new (): HTMLMemoryCardElement;
+    };
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
         "app-root": HTMLAppRootElement;
+        "memory-card": HTMLMemoryCardElement;
     }
 }
 declare namespace LocalJSX {
@@ -34,9 +46,15 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface MemoryCard {
+        "cardImage"?: string;
+        "clickHandler"?: any;
+        "isRevealed"?: boolean;
+    }
     interface IntrinsicElements {
         "app-home": AppHome;
         "app-root": AppRoot;
+        "memory-card": MemoryCard;
     }
 }
 export { LocalJSX as JSX };
@@ -45,6 +63,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "memory-card": LocalJSX.MemoryCard & JSXBase.HTMLAttributes<HTMLMemoryCardElement>;
         }
     }
 }
