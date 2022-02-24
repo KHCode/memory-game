@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Listen, State } from '@stencil/core';
+import { Component, Host, h, Prop } from '@stencil/core';
 
 @Component({
   tag: 'memory-card',
@@ -6,23 +6,27 @@ import { Component, Host, h, Prop, Listen, State } from '@stencil/core';
   shadow: true,
 })
 export class MemoryCard {
-  @Prop() isRevealed = false;
+  @Prop() isRevealed: boolean = false;
+  @Prop() isMatched: boolean = false;
+  @Prop() isClicked: boolean = false;
   @Prop() cardImage: string = "/assets/images/butterfly.jpg";
   @Prop() clickHandler;
+  @Prop() name: string;
   memoryCardEl: HTMLDivElement;
   imageEl: HTMLImageElement;
 
   sidePicker = () => {
     if(this.isRevealed){
+      let visibility = {'visibility': `${this.isMatched ? 'hidden' : 'visible'}`}
       return ( 
         <div 
-          class="image-container" 
-          onClick={(e) => {this.clickHandler(e)}} 
+          class="revealed image-container" 
+          onClick={(e) => {this.clickHandler(e, this)}} 
           ref={(el) => this.memoryCardEl = el as HTMLDivElement}
+          style={visibility}
         >
           <img 
             class="image" 
-            // onLoad={() => {opacity: 1}}
             src={this.cardImage}
             ref={(el) => this.imageEl = el as HTMLImageElement}
           ></img>
@@ -31,7 +35,7 @@ export class MemoryCard {
       return (
         <div 
           class="unrevealed" 
-          onClick={(e) => {this.clickHandler(e)}} 
+          onClick={(e) => {this.clickHandler(e, this)}} 
           ref={(el) => this.memoryCardEl = el as HTMLDivElement}></div>
       )
     }

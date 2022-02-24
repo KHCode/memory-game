@@ -13,7 +13,10 @@ export namespace Components {
     interface MemoryCard {
         "cardImage": string;
         "clickHandler": any;
+        "isClicked": boolean;
+        "isMatched": boolean;
         "isRevealed": boolean;
+        "name": string;
     }
 }
 declare global {
@@ -49,7 +52,10 @@ declare namespace LocalJSX {
     interface MemoryCard {
         "cardImage"?: string;
         "clickHandler"?: any;
+        "isClicked"?: boolean;
+        "isMatched"?: boolean;
         "isRevealed"?: boolean;
+        "name"?: string;
     }
     interface IntrinsicElements {
         "app-home": AppHome;
