@@ -149,8 +149,6 @@ export class AppHome {
       isClicked: false
     },
   ]
-
-  memoryCards: Array<MemoryCard>;
   shuffledDeck: Array<MemoryCard>;
   revealedCards: Array<any> = new Array;
 
@@ -161,29 +159,34 @@ export class AppHome {
   // @State() isClicked: boolean = false;
 
   @Listen('click', {passive: false})
-  clickHandler(ev, currentEl) {
-    ev.preventDefault();
-    ev.stopPropagation()
-    ev.stopImmediatePropagation()
-    currentEl.isClicked = true;
-    this.revealedCards = this.memoryCards.filter(card => card.isClicked == true)
-    console.dir(currentEl)
-    console.dir(this.revealedCards)
-    if(this.revealedCards.length < 2){
-      currentEl.isRevealed = !currentEl.isRevealed;
-      this.revealedCards.push(currentEl)
-      console.dir(this.revealedCards)
-    }
-    if(this.revealedCards.length == 2){
-      if(this.revealedCards[0].name == this.revealedCards[1].name){//check if the cards match
-        //if so, hide the cards and give the player a point
-        this.revealedCards[0].style.visibility = 'hidden';
-        this.revealedCards[1].style.visibility = 'hidden';
-        this.score++;
-      }
-
-    }
+  clickHandler(ev) {
+    console.dir(ev)
+    this.score++
+    console.log(this.score)
   }
+
+  // @Listen('cardClicked', {passive: false})
+  // cardClickHandler(ev, currentEl) {//pass the name of the card to this handler
+  //   //first check if there was another card clicked, if yes:
+  //     //check if this card and the other card have the same name, if yes:
+  //       //increment the score by one
+  //       //
+  //   this.revealedCards = this.shuffledDeck.filter(card => card.isClicked == true)
+  //   if(this.revealedCards.length < 2){
+  //     currentEl.isRevealed = !currentEl.isRevealed;
+  //     this.revealedCards.push(currentEl)
+  //     console.dir(this.revealedCards)
+  //   }
+  //   if(this.revealedCards.length == 2){
+  //     if(this.revealedCards[0].name == this.revealedCards[1].name){//check if the cards match
+  //       //if so, hide the cards and give the player a point
+  //       this.revealedCards[0].style.visibility = 'hidden';
+  //       this.revealedCards[1].style.visibility = 'hidden';
+  //       this.score++;
+  //     }
+
+  //   }
+  // }
 
   componentWillLoad(){
     this.shuffledDeck = this.getMemoryCards();
@@ -207,18 +210,17 @@ export class AppHome {
 
 
   getMemoryCards(){
-    this.memoryCards = this.memCardObjects.map((card)=>{
+    let memoryCards = this.memCardObjects.map((card)=>{
       return (
         <memory-card
           name={card.name}
           isRevealed={card.isRevealed}
           cardImage={card.imageUrl}
-          clickHandler={this.clickHandler}
           isMatched={card.isMatched}
         ></memory-card>
       )
     })
-    return this.shuffle(this.memoryCards)
+    return this.shuffle(memoryCards)
   }
 
   render() {
